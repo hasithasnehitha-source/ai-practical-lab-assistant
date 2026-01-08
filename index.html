@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Lab Assistant | Smart Practical Guide</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-robot"></i> AI Lab Assistant
+        </div>
+        <div class="nav-links">
+            <a href="#" class="nav-link active" data-target="home">Home</a>
+            <a href="#" class="nav-link" data-target="labs">Labs</a>
+            <a href="#" class="nav-link" data-target="ai-assistant">AI Code Helper</a>
+            <a href="#" class="nav-link" data-target="viva">Viva Prep</a>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <main id="app-container">
+
+        <!-- LOGIN SECTION -->
+        <section id="login" class="active-section center-content"
+            style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);">
+            <div class="login-container">
+                <div class="card login-card">
+                    <div class="login-header">
+                        <i class="fa-solid fa-user-astronaut fa-3x" style="color:var(--primary);"></i>
+                        <h2>Welcome Back</h2>
+                        <p>Sign in to your AI Lab Assistant</p>
+                    </div>
+                    <form id="login-form" onsubmit="handleLogin(event)">
+                        <div class="form-group">
+                            <label><i class="fa-solid fa-envelope"></i> Email</label>
+                            <input type="email" id="email" placeholder="student@college.edu" required
+                                value="demo@student.com">
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fa-solid fa-lock"></i> Password</label>
+                            <input type="password" id="password" placeholder="••••••••" required value="password">
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Login <i
+                                class="fa-solid fa-arrow-right"></i></button>
+                    </form>
+                    <p class="login-footer">Don't have an account? <a href="#">Register</a></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- HOME SECTION -->
+        <section id="home" class="hidden-section">
+            <div class="hero">
+                <h1>Your Smart Companion for <span class="highlight">College Practicals</span></h1>
+                <p>Real-time guidance, code analysis, and viva preparation powered by AI logic.</p>
+                <div class="cta-buttons">
+                    <button class="btn btn-primary" onclick="navigateTo('labs')">Explore Labs</button>
+                    <button class="btn btn-secondary" onclick="navigateTo('ai-assistant')">Try Code Assistant</button>
+                </div>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fa-solid fa-flask"></i>
+                    <h3>Step-by-Step Guide</h3>
+                    <p>Get aims, algorithms, and logic for every experiment.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fa-solid fa-code"></i>
+                    <h3>Code Analysis</h3>
+                    <p>Paste your code and get instant feedback and fixes.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fa-solid fa-brain"></i>
+                    <h3>Viva Generator</h3>
+                    <p>Prepare for exams with conceptual AI-generated questions.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- LAB CATEGORIES SECTION -->
+        <section id="labs" class="hidden-section">
+            <div class="section-header">
+                <h2>Select Your Lab</h2>
+                <p>Choose a subject to see available experiments.</p>
+            </div>
+            <div id="lab-categories-container" class="grid-container">
+                <!-- Lab Cards injected by JS -->
+                <div class="loading-spinner">Loading Labs...</div>
+            </div>
+        </section>
+
+        <!-- EXPERIMENT LIST SECTION -->
+        <section id="experiments-list" class="hidden-section">
+            <div class="section-header">
+                <button class="back-btn" onclick="navigateTo('labs')"><i class="fa-solid fa-arrow-left"></i>
+                    Back</button>
+                <h2 id="selected-lab-title">Lab Experiments</h2>
+            </div>
+            <div id="experiments-container" class="list-container">
+                <!-- Experiment items injected by JS -->
+            </div>
+        </section>
+
+        <!-- EXPERIMENT DETAILS SECTION -->
+        <section id="experiment-details" class="hidden-section">
+            <div class="details-header">
+                <button class="back-btn" onclick="navigateTo('experiments-list')"><i class="fa-solid fa-arrow-left"></i>
+                    Back to List</button>
+                <h2 id="exp-title">Experiment Title</h2>
+            </div>
+
+            <div class="experiment-workspace">
+                <div class="guide-panel">
+                    <div class="card">
+                        <h3><i class="fa-solid fa-bullseye"></i> Aim</h3>
+                        <p id="exp-aim">Loading...</p>
+                    </div>
+                    <div class="card">
+                        <h3><i class="fa-solid fa-list-ol"></i> Algorithm / Procedure</h3>
+                        <div id="exp-procedure">Loading...</div>
+                    </div>
+                    <div class="card">
+                        <h3><i class="fa-solid fa-keyboard"></i> Sample Input</h3>
+                        <pre id="exp-input">Loading...</pre>
+                    </div>
+                    <div class="card">
+                        <h3><i class="fa-solid fa-terminal"></i> Expected Output</h3>
+                        <pre id="exp-output">Loading...</pre>
+                    </div>
+                </div>
+
+                <div class="action-panel">
+                    <div class="card ai-card">
+                        <h3><i class="fa-solid fa-robot"></i> Quick AI Help</h3>
+                        <p>Stuck? specific logic for this experiment:</p>
+                        <div id="exp-hints"></div>
+                        <button class="btn btn-sm btn-primary" onclick="showHint()">Get Hint</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI ASSISTANT SECTION -->
+        <section id="ai-assistant" class="hidden-section center-content">
+            <div class="section-header">
+                <h2>AI Code Assistant</h2>
+                <p>Paste your code below to find errors or get an explanation.</p>
+            </div>
+            <div class="editor-container">
+                <textarea id="code-input" placeholder="// Paste your C/C++/Java/Python code here..."></textarea>
+                <div class="controls">
+                    <select id="language-select">
+                        <option value="python">Python</option>
+                        <option value="c">C</option>
+                        <option value="cpp">C++</option>
+                        <option value="java">Java</option>
+                    </select>
+                    <button class="btn btn-primary" onclick="analyzeCode()">Analyze Code <i
+                            class="fa-solid fa-magic"></i></button>
+                </div>
+            </div>
+            <div id="analysis-result" class="result-box hidden">
+                <h3><i class="fa-solid fa-stethoscope"></i> Analysis Report</h3>
+                <div id="ai-feedback-content"></div>
+            </div>
+        </section>
+
+        <!-- VIVA PREPARATION SECTION -->
+        <section id="viva" class="hidden-section center-content">
+            <div class="section-header">
+                <h2>Viva Preparation</h2>
+                <p>Generate conceptual questions to prepare for your lab exam.</p>
+            </div>
+            <div class="viva-controls">
+                <label>Topic / Experiment Context:</label>
+                <input type="text" id="viva-topic" placeholder="e.g. Linked Lists, Binary Search, File Handling">
+                <button class="btn btn-primary" onclick="generateVivaQuestions()">Generate Questions <i
+                        class="fa-solid fa-question"></i></button>
+            </div>
+            <div id="viva-questions-container" class="cards-stack hidden">
+                <!-- Questions injected here -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 AI Lab Assistant. Built for GDG Hackathon.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <!-- Firebase SDKs (using UMD for simple prototyping without bundler) -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+    <script src="js/firebase-config.js"></script>
+    <script src="js/db.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>
